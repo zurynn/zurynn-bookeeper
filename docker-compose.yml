@@ -1,19 +1,17 @@
-version: '3.8'
-
 services:
   mysql:
     image: mysql:8.0
-    container_name: zurynn-mysql
+    container_name: zurynn-simple-mysql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: zurynn_bookkeeper
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root_password_change_me}
+      MYSQL_DATABASE: zurynn_simple
       MYSQL_USER: zurynn
-      MYSQL_PASSWORD: zurynn_password
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - mysql_simple_data:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       timeout: 20s
@@ -23,21 +21,13 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    container_name: zurynn-backend
+    container_name: zurynn-simple-backend
     restart: unless-stopped
     depends_on:
       mysql:
         condition: service_healthy
-    environment:
-      NODE_ENV: production
-      PORT: 3001
-      DB_HOST: mysql
-      DB_PORT: 3306
-      DB_USER: zurynn
-      DB_PASSWORD: zurynn_password
-      DB_NAME: zurynn_bookkeeper
     ports:
-      - "3001:3001"
+      - "3002:3001"
     env_file:
       - .env
 
@@ -45,12 +35,12 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
-    container_name: zurynn-frontend
+    container_name: zurynn-simple-frontend
     restart: unless-stopped
     depends_on:
       - backend
     ports:
-      - "5173:80"
+      - "8080:80"
 
 volumes:
-  mysql_data:
+  mysql_simple_data:
