@@ -7,3 +7,4 @@ export * from './billing';
 export * from './banking';
 export * from './automation';
 export * from './expenses';
+export * from './transactions';

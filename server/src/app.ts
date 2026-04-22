@@ -13,16 +13,9 @@ import { logger } from './utils/logger';
 // Route imports
 import authRoutes from './routes/auth';
 import companyRoutes from './routes/company';
-import accountRoutes from './routes/accounts';
-import journalRoutes from './routes/journal';
-import customerRoutes from './routes/customers';
-import invoiceRoutes from './routes/invoices';
-import vendorRoutes from './routes/vendors';
-import billRoutes from './routes/bills';
-import bankRoutes from './routes/banking';
 import reportRoutes from './routes/reports';
 import dashboardRoutes from './routes/dashboard';
-import expenseRoutes from './routes/expenses';
+import transactionRoutes from './routes/transactions';
 
 const app = express();
 
@@ -53,16 +46,9 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/companies', companyRoutes);
-app.use('/api/accounts', accountRoutes);
-app.use('/api/journal', journalRoutes);
-app.use('/api/customers', customerRoutes);
-app.use('/api/invoices', invoiceRoutes);
-app.use('/api/vendors', vendorRoutes);
-app.use('/api/bills', billRoutes);
-app.use('/api/bank-accounts', bankRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api/dashboard', dashboardRoutes);
-app.use('/api/expenses', expenseRoutes);
+app.use('/api/transactions', transactionRoutes);
 
 // Health check
 app.get('/health', (req, res) => {

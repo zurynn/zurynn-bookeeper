@@ -1,28 +1,19 @@
 import { NavLink } from 'react-router-dom';
 import {
-  LayoutDashboard, BookOpen, FileText, Users, Receipt,
-  Store, CreditCard, Building2, BarChart3, Settings,
-  TrendingUp, Wallet, ArrowLeftRight, ShoppingBag
+  LayoutDashboard, ArrowLeftRight, TrendingUp, BarChart3, Wallet, Receipt, Settings,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
   { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-  { to: '/accounts', icon: BookOpen, label: 'Chart of Accounts' },
-  { to: '/journal', icon: FileText, label: 'General Ledger' },
-  { to: '/customers', icon: Users, label: 'Customers' },
-  { to: '/invoices', icon: Receipt, label: 'Invoices' },
-  { to: '/vendors', icon: Store, label: 'Vendors' },
-  { to: '/bills', icon: CreditCard, label: 'Bills' },
-  { to: '/expenses', icon: ShoppingBag, label: 'Expenses' },
-  { to: '/banking', icon: Building2, label: 'Banking' },
+  { to: '/transactions', icon: ArrowLeftRight, label: 'Transactions' },
 ];
 
 const reportItems = [
   { to: '/reports/profit-loss', icon: TrendingUp, label: 'Profit & Loss' },
   { to: '/reports/balance-sheet', icon: BarChart3, label: 'Balance Sheet' },
   { to: '/reports/cash-flow', icon: Wallet, label: 'Cash Flow' },
-  { to: '/reports/tax-summary', icon: ArrowLeftRight, label: 'Tax Summary' },
+  { to: '/reports/tax-summary', icon: Receipt, label: 'Tax Summary' },
 ];
 
 export default function Sidebar() {
@@ -30,9 +21,9 @@ export default function Sidebar() {
     <div className="w-64 bg-slate-900 text-white flex flex-col">
       <div className="p-6 border-b border-slate-700">
         <h1 className="text-xl font-bold text-white">Zurynn</h1>
-        <p className="text-xs text-slate-400 mt-1">Book Keeper</p>
+        <p className="text-xs text-slate-400 mt-1">Book Keeper Simple</p>
       </div>
-      
+
       <nav className="flex-1 overflow-y-auto p-4 space-y-1">
         {navItems.map((item) => (
           <NavLink
@@ -51,7 +42,7 @@ export default function Sidebar() {
             {item.label}
           </NavLink>
         ))}
-        
+
         <div className="pt-4">
           <p className="px-3 py-1 text-xs font-semibold text-slate-500 uppercase tracking-wider">Reports</p>
           {reportItems.map((item) => (
@@ -73,7 +64,7 @@ export default function Sidebar() {
           ))}
         </div>
       </nav>
-      
+
       <div className="p-4 border-t border-slate-700">
         <NavLink
           to="/settings/company"

@@ -9,19 +9,12 @@ import ResetPasswordPage from './pages/auth/ResetPasswordPage';
 import VerifyEmailPage from './pages/auth/VerifyEmailPage';
 import CreateCompanyPage from './pages/onboarding/CreateCompanyPage';
 import DashboardPage from './pages/dashboard/DashboardPage';
-import AccountsPage from './pages/accounts/AccountsPage';
-import JournalPage from './pages/journal/JournalPage';
-import CustomersPage from './pages/customers/CustomersPage';
-import InvoicesPage from './pages/invoices/InvoicesPage';
-import VendorsPage from './pages/vendors/VendorsPage';
-import BillsPage from './pages/bills/BillsPage';
-import BankingPage from './pages/banking/BankingPage';
+import TransactionsPage from './pages/transactions/TransactionsPage';
 import PnLPage from './pages/reports/PnLPage';
 import BalanceSheetPage from './pages/reports/BalanceSheetPage';
 import CashFlowPage from './pages/reports/CashFlowPage';
 import TaxSummaryPage from './pages/reports/TaxSummaryPage';
 import CompanySettingsPage from './pages/company/CompanySettingsPage';
-import ExpensesPage from './pages/expenses/ExpensesPage';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
@@ -33,7 +26,6 @@ function GuestRoute({ children }: { children: React.ReactNode }) {
   return !isAuthenticated ? <>{children}</> : <Navigate to="/dashboard" replace />;
 }
 
-// Redirects users who don't have a company yet to the onboarding page
 function CompanyRequired({ children }: { children: React.ReactNode }) {
   const company = useCompanyStore((s) => s.company);
   return company ? <>{children}</> : <Navigate to="/onboarding/company" replace />;
@@ -49,13 +41,13 @@ export default function App() {
       <Route path="/reset-password" element={<GuestRoute><ResetPasswordPage /></GuestRoute>} />
       <Route path="/verify-email" element={<VerifyEmailPage />} />
 
-      {/* Onboarding — authenticated but no company yet */}
+      {/* Onboarding */}
       <Route
         path="/onboarding/company"
         element={<ProtectedRoute><CreateCompanyPage /></ProtectedRoute>}
       />
 
-      {/* App routes — require auth + company */}
+      {/* App routes */}
       <Route
         path="/"
         element={
@@ -68,14 +60,7 @@ export default function App() {
       >
         <Route index element={<Navigate to="/dashboard" replace />} />
         <Route path="dashboard" element={<DashboardPage />} />
-        <Route path="accounts" element={<AccountsPage />} />
-        <Route path="journal" element={<JournalPage />} />
-        <Route path="customers" element={<CustomersPage />} />
-        <Route path="invoices" element={<InvoicesPage />} />
-        <Route path="vendors" element={<VendorsPage />} />
-        <Route path="bills" element={<BillsPage />} />
-        <Route path="banking" element={<BankingPage />} />
-        <Route path="expenses" element={<ExpensesPage />} />
+        <Route path="transactions" element={<TransactionsPage />} />
         <Route path="reports/profit-loss" element={<PnLPage />} />
         <Route path="reports/balance-sheet" element={<BalanceSheetPage />} />
         <Route path="reports/cash-flow" element={<CashFlowPage />} />
